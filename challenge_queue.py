@@ -1,27 +1,24 @@
 #This class should not need persistant backing.
 
+import heapq
+
 class QueueEmptyError(Exception):
     pass
 
 
 class ChallengeQueue(object):
-    queue = []
-
     def __init__(self):
         self.queue = []
 
-    def append(self, item):
-        #Sort-algo here?
-        #Right now, consider sort() = null
-        self.queue.append(item)
+    def append(self, item, prio=0):
+        #Set priority with prio, zero is highest
+        heapq.heappush(self.queue, (prio, item))
 
     def pop(self):
-        if len(self.queue) <= 0:
+        if not self.queue:
             raise QueueEmptyError
         else:
-            return self.queue.pop()
+            return heapq.heappop(self.queue)[1]
 
     def __len__(self):
         return len(self.queue)
-
-
