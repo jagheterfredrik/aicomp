@@ -60,7 +60,7 @@ class GameMaster(object):
             f.close()
 
         # make the players talk!
-        players_bin_args = [["python", os.path.join(os.getcwd(), DIR_PREFIX, "/%d/%s"%(i, configs[i]['executable'],))]
+        players_bin_args = [["python", os.path.abspath(os.path.join(DIR_PREFIX, "/%d/%s"%(i, configs[i]['executable'],)))]
                             for i in xrange(len(self.players))]
         
         self.processes = [ProcessHandler(pba) for pba in players_bin_args]
